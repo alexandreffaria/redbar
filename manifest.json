@@ -11,6 +11,7 @@
     {
       "matches": ["*://*.youtube.com/*"],
       "js": ["content.js"],
+      "css": ["css/youtube-overlay.css"],
       "run_at": "document_idle"
     }
   ],

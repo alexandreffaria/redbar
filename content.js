@@ -93,77 +93,32 @@
   }
 
   function createOverlay() {
+    // CSS is loaded via manifest.json content_scripts
+
     // Backdrop
     backdropEl = document.createElement("div");
-    Object.assign(backdropEl.style, {
-      position: "fixed",
-      inset: "0",
-      background: "rgba(0,0,0,0.25)",
-      zIndex: "2147483646"
-    });
+    backdropEl.className = "yt-quick-jump-backdrop";
     backdropEl.addEventListener("click", hideOverlay);
 
     // Panel
     overlayEl = document.createElement("div");
-    Object.assign(overlayEl.style, {
-      position: "fixed",
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%, -50%)",
-      zIndex: "2147483647",
-      display: "flex",
-      gap: "8px",
-      alignItems: "center",
-      background: "rgba(20,20,20,0.95)",
-      border: "1px solid rgba(255,255,255,0.15)",
-      borderRadius: "12px",
-      padding: "14px 16px",
-      boxShadow: "0 10px 30px rgba(0,0,0,0.35)",
-      fontFamily: "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji",
-      color: "#eee",
-    });
+    overlayEl.className = "yt-quick-jump-overlay";
 
     const label = document.createElement("div");
     label.textContent = "Jump to:";
-    label.style.opacity = "0.9";
+    label.className = "yt-quick-jump-label";
 
     inputEl = document.createElement("input");
     Object.assign(inputEl, {
       type: "text",
       placeholder: "e.g., 1:23:45 or 95s or 123",
-      spellcheck: false
-    });
-    Object.assign(inputEl.style, {
-      width: "220px",
-      background: "#111",
-      color: "#fff",
-      border: "1px solid #333",
-      outline: "none",
-      borderRadius: "8px",
-      padding: "10px 12px",
-      fontSize: "14px",
-      transition: "border-color 0.3s"
+      spellcheck: false,
+      className: "yt-quick-jump-input"
     });
     
-    // Add styles for invalid input
-    const style = document.createElement('style');
-    style.textContent = `
-      .invalid-input {
-        border-color: #f44336 !important;
-        animation: shake 0.5s;
-      }
-      
-      @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        20%, 60% { transform: translateX(-5px); }
-        40%, 80% { transform: translateX(5px); }
-      }
-    `;
-    document.head.appendChild(style);
-
     const hint = document.createElement("div");
     hint.textContent = "⏎ to jump, Esc to close";
-    Object.assign(hint.style, { fontSize: "12px", opacity: "0.7" });
+    hint.className = "yt-quick-jump-hint";
 
     overlayEl.appendChild(label);
     overlayEl.appendChild(inputEl);
@@ -197,31 +152,6 @@
             const recoverMsg = document.createElement("div");
             recoverMsg.textContent = "Invalid format, try again";
             recoverMsg.className = "yt-quick-jump-error";
-            Object.assign(recoverMsg.style, {
-              color: "#f44336",
-              fontSize: "12px",
-              marginTop: "4px",
-              fontWeight: "bold",
-              position: "absolute",
-              bottom: "-24px",
-              left: "50%",
-              transform: "translateX(-50%)",
-              whiteSpace: "nowrap",
-              opacity: "0",
-              animation: "fade-in-out 2s ease-in-out"
-            });
-            
-            // Add fade-in-out animation
-            const errorStyle = document.createElement('style');
-            errorStyle.textContent = `
-              @keyframes fade-in-out {
-                0% { opacity: 0; }
-                20% { opacity: 1; }
-                80% { opacity: 1; }
-                100% { opacity: 0; }
-              }
-            `;
-            document.head.appendChild(errorStyle);
             
             overlayEl.appendChild(recoverMsg);
             setTimeout(() => {

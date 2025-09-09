@@ -199,10 +199,10 @@ function setupInputHandlers() {
 
 /**
  * Load the CSS needed for the overlay
+ * Note: CSS is loaded automatically via the manifest.json content_scripts
  */
 export function loadOverlayStyles() {
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = chrome.runtime.getURL('css/youtube-overlay.css');
-  document.head.appendChild(link);
+  // CSS is now loaded via manifest.json content_scripts
+  // This function is kept for compatibility
+  console.log("[yt-quick-jump] CSS loaded via manifest");
 }
