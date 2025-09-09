@@ -1,0 +1,30 @@
+{
+  "manifest_version": 2,
+  "name": "redBar",
+  "version": "1.0.1",
+  "description": "Press a hotkey, type a timestamp, and jump there in the current YouTube video.",
+  "permissions": ["activeTab", "tabs", "contextMenus", "*://*.youtube.com/*"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    "css/youtube-overlay.css"
+  ],
+  "commands": {
+    "open-timestamp-overlay": {
+      "suggested_key": { "default": "Alt+Shift+Y" },
+      "description": "Show the timestamp overlay"
+    }
+  },
+  "browser_action": {
+    "default_title": "YouTube Quick Jump"
+  }
+}

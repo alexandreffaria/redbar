@@ -1,0 +1,81 @@
+/**
+ * YouTube Quick Jump - Overlay Styles
+ */
+
+.yt-quick-jump-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  z-index: 2147483646;
+}
+
+.yt-quick-jump-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2147483647;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: rgba(20, 20, 20, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 14px 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji;
+  color: #eee;
+}
+
+.yt-quick-jump-label {
+  opacity: 0.9;
+}
+
+.yt-quick-jump-input {
+  width: 220px;
+  background: #111;
+  color: #fff;
+  border: 1px solid #333;
+  outline: none;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.yt-quick-jump-hint {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.yt-quick-jump-input.invalid-input {
+  border-color: #f44336 !important;
+  animation: yt-quick-jump-shake 0.5s;
+}
+
+.yt-quick-jump-error {
+  color: #f44336;
+  font-size: 12px;
+  margin-top: 4px;
+  font-weight: bold;
+  position: absolute;
+  bottom: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  opacity: 0;
+  animation: yt-quick-jump-fade-in-out 2s ease-in-out;
+}
+
+@keyframes yt-quick-jump-shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+@keyframes yt-quick-jump-fade-in-out {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}
